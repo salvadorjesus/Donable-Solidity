@@ -60,6 +60,9 @@ contract Donable is Ownable
         donateAmount(msg.value);
     }
 
+    /**
+    * @dev Private function to keep track of donations made. It emits a DonationMade event.
+    */
     function donateAmount(uint donation) internal
     {        
         if (donation > 0)
