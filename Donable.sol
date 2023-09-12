@@ -41,8 +41,13 @@ contract Donable is Ownable
     {
         address payable to = payable(super.getOwner());
         //Checks - effect - interaction pattern
-        //TODO check for correct amount available.
-        uint donationsToSend = donationPot;
+        uint donationsToSend;
+        // Resiliency check for potential misuse by the contract developer.
+        if (address(this).balance >= donationPot)
+            donationsToSend = donationPot;
+        else
+            donationsToSend = address(this).balance;
+
         donationPot = 0;
         to.transfer(donationsToSend);
     }
