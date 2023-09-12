@@ -3,16 +3,23 @@ pragma solidity >=0.7.0 <0.9.0;
 
 /**
  * @title Ownable
- * @dev Set & change owner
+ * @dev Set & change owner. A modification of the sample contract on Remix.
  */
 contract Ownable {
 
+    /**
+    * @dev Storage variable to keep track of the contract owner.
+    */
     address private owner;
     
-    // event for EVM logging
+    /**
+    * @dev Event for EVM logging. Emitted during owner change or contract creation.
+    */ 
     event OwnerSet(address indexed oldOwner, address indexed newOwner);
     
-    // modifier to check if caller is owner
+    /**
+    * @dev Modifier to check if the function caller is owner
+    */
     modifier requireOwner() {
         // If the first argument of 'require' evaluates to 'false', execution terminates and all
         // changes to the state and to Ether balances are reverted.
@@ -21,7 +28,7 @@ contract Ownable {
     }
     
     /**
-     * @dev Set contract deployer as owner
+     * @dev Constructor. Sets the contract deployer as owner. 
      */
     constructor() {
         owner = msg.sender; // 'msg.sender' is sender of current call, contract deployer for a constructor
