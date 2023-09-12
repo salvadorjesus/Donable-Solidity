@@ -22,20 +22,12 @@ contract Donable is Ownable
     event DonationMade(address indexed donor, uint donation);
 
     /**
-    * @dev Modifier for a payable function of a child contract to accept
-    * implicit donations. All WEI sent msg.amount not used in the function can
-    * be stored in the change variable by the developer, and the contract will
-    * keep track of said amount as a donation.
-    */
-    modifier keepTheChange ()
-    {
-        uint change;
-        _;
-        donateAmount(change);
-    }
-
-    /**
      * @notice Send all stored donations to the contract owner.
+     * @dev Be mindful of the fact that the contract has complete control over
+     * its fonds. It is possible for Donable to keep track of a donation amount
+     * larger or smaller than what is keep in a child contract, either
+     * because of the contract has spent it, or because donations have been
+     * overestimated by the developer.
      */
     function claimDonations() public requireOwner
     {
@@ -61,14 +53,34 @@ contract Donable is Ownable
     }
 
     /**
-    * @dev Private function to keep track of donations made. It emits a DonationMade event.
+    * @dev Internal function to keep track of a donation. It emits a DonationMade
+    * event if donation is greater than zero.
+    * @param donation The donated amount that needs to be accounted for.
     */
-    function donateAmount(uint donation) private
+    function donateAmount(uint donation) internal
     {        
         if (donation > 0)
         {
             donationPot += donation;
             emit DonationMade(msg.sender, donation);
+        }
+    }
+
+    /**
+    * @dev Internal utility function to keep track of a donation. It will 
+    * calculate the donation made as the different between spentAmount and
+    * msg.value, then use the function donateAmount.
+    * @param spentAmount The amount of Wei used by the caller function. The rest
+    * of the msg.value is to be accounted as a donation.
+    */
+    function keepTheChange(uint spentAmount) internal
+    {
+        //spentAmount could be greater than msg.value in some use cases (i.e.:
+        // the user has some kind of credit.)
+        if (spentAmount <= msg.value)
+        {
+            uint change = msg.value - spentAmount;
+            donateAmount(change);
         }
     }
 }
