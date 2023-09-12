@@ -63,7 +63,7 @@ contract Donable is Ownable
     /**
     * @dev Private function to keep track of donations made. It emits a DonationMade event.
     */
-    function donateAmount(uint donation) internal
+    function donateAmount(uint donation) private
     {        
         if (donation > 0)
         {
