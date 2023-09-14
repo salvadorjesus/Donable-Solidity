@@ -31,9 +31,9 @@ contract Donable is Ownable
      * because of the contract has spent it, or because donations have been
      * overestimated by the developer.
      */
-    function claimDonations() public requireOwner
+    function withdrawDonations() public requireOwner
     {
-        address payable to = payable(super.getOwner());
+        address payable owner = payable(getOwner());
         //Checks - effect - interaction pattern
         uint donationsToSend;
         // Resiliency check for potential misuse by the contract developer.
@@ -43,7 +43,7 @@ contract Donable is Ownable
             donationsToSend = address(this).balance;
 
         donationPot = 0;
-        to.transfer(donationsToSend);
+        owner.transfer(donationsToSend);
     }
 
     /**
