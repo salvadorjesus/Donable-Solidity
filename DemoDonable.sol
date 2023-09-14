@@ -48,8 +48,7 @@ contract DemoDonable is Donable
     function withdrawAllFunds() public requireOwner()
     {
         contractFunds=0;
-        address payable owner = payable(getOwner());
-        payable(getOwner()).transfer(owner.balance);
+        payable(getOwner()).transfer(address(this).balance);
     }
 
     /**
