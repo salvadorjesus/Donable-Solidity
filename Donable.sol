@@ -21,8 +21,6 @@ contract Donable is Ownable
     */
     event DonationMade(address indexed donor, uint donation);
 
-    //TODO internal getter for donationPot
-
     /**
      * @notice Send all stored donations to the contract owner.
      * @dev Be mindful of the fact that the contract has complete control over
