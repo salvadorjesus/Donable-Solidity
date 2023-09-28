@@ -14,14 +14,12 @@ contract Donable is Ownable
 {
     /** @dev Keeps track of the amount of WEI stored in the contract that is a donation.
     */
-    uint private donationPot;
+    uint public donationPot;
 
     /**
     * @dev Emitted when a donation is made. Indexed by donor.
     */
     event DonationMade(address indexed donor, uint donation);
-
-    //TODO internal getter for donationPot
 
     /**
      * @notice Send all stored donations to the contract owner.

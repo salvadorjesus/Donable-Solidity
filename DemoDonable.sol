@@ -16,27 +16,27 @@ contract DemoDonable is Donable
     uint public contractFunds;
 
     /**
-    * @notice Emulates doing charging the user for 1000 Wei and keeping
+    * @notice Emulates doing charging the user for 1 mEth and keeping
     * the rest of money transferred in the transaction as a donation.
     * @dev Uses the Donable function keepTheChange().
     */
-    function doSomethingFor1000WeiA() public payable
+    function doSomethingFor1mEtherKeepTheChange() public payable
     {
-        require(msg.value >= 1000, "Not enough WEI. Please send 1000 or more");
-        contractFunds += 1000;
-        keepTheChange(1000);
+        require(msg.value >= 1e15, "Not enough WEI. Please send 1000 or more");
+        contractFunds += 1e15;
+        keepTheChange(1e15);
     }
 
     /**
-    * @notice Emulates doing charging the user for 1000 Wei and keeping
+    * @notice Emulates doing charging the user for 1 mEth and keeping
     * the rest of money transferred in the transaction as a donation.
     * @dev Uses the Donable function donateAmount(uint donation).
     */
-    function doSomethingFor1000WeiB() public payable
+    function doSomethingFor1mEtherAndDonateTheRest() public payable
     {
-        require(msg.value >= 1000, "Not enough WEI. Please send 1000 or more");
-        contractFunds += 1000;
-        uint donation = msg.value - 1000;
+        require(msg.value >= 1e15, "Not enough WEI. Please send 1000 or more");
+        contractFunds += 1e15;
+        uint donation = msg.value - 1e15;
         donateAmount(donation);
     }
     /**
