@@ -6,6 +6,8 @@ An `Ownable.sol` contract that provides ownership functionality is inherited by 
 There is also a _Truffle test_ folder with files for testing the contracts in a Truffle project.
 ## Contracts
 
+![Donable UML](https://github.com/salvadorjesus/Donable-Solidity/assets/637125/f838711b-5897-42fc-b0f6-4d50039569cf)
+
 ### Ownable.sol
 
 This contract provides basic ownership functionality. It allows you to set and change the owner of a contract. The owner has certain privileges, and only the owner can perform certain actions within the contract.
