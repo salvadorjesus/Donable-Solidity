@@ -75,4 +75,16 @@ contract("DemoDonable", (accounts) => {
     assert.equal(contractFunds2, contractAddressValue,
       "The contract funds should match the contract's address balance after donations withdrawal.");
   });
+
+  it("should not fail when withdrawing donations if the owner has previously depleted the contract address balance.", async() => {
+    await demoDonableInstance.withdrawAllFunds({ from: owner });
+    try {
+      await demoDonableInstance.withdrawDonations({ from: owner });
+    } catch (error) {
+      assert.fail("withdrawDonations() failed when attempting to withdraw donations without sufficient"+
+        " funds on the contract address balance: " +
+        error.message);
+    }
+  });
+
 });

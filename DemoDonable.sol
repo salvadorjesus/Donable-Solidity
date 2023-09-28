@@ -42,10 +42,10 @@ contract DemoDonable is Donable
     /**
     * @notice Withdraw the funds that the contract accounts for.
     * @dev This will take the donation money accounted for in the extended
-    * Donable super contract without update the donation pot variable. However,
+    * Donable super contract without updating the donation pot variable. However,
     * Donable should detect this when withdrawing donations and adapt gracefully.
     */
-    function withdrawAllFunds() public requireOwner()
+    function withdrawAllFunds() public requireOwner
     {
         contractFunds=0;
         payable(getOwner()).transfer(address(this).balance);
