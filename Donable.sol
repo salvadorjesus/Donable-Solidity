@@ -14,7 +14,7 @@ contract Donable is Ownable
 {
     /** @dev Keeps track of the amount of WEI stored in the contract that is a donation.
     */
-    uint private donationPot;
+    uint public donationPot;
 
     /**
     * @dev Emitted when a donation is made. Indexed by donor.
